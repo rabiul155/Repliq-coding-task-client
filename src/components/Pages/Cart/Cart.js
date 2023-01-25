@@ -1,16 +1,19 @@
 import React, { useContext, useState } from 'react';
 import { useQuery } from 'react-query';
 import { AuthContext } from '../../../context/AuthProvider';
+import Loading from '../../Shared/Loading/Loading';
 import CartProduct from './CartProduct/CartProduct';
+import img1 from '../../../images/p1.png'
+import img2 from '../../../images/p2.png'
+import img3 from '../../../images/p3.png'
 
 const Cart = () => {
 
     const [checkout, setCheckout] = useState(0);
-
     const { user } = useContext(AuthContext);
     const email = user?.email;
 
-    const { data: Products = [], isLoading, refetch } = useQuery({
+    const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['cartProduct'],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/cart?email=${email}`)
@@ -19,24 +22,60 @@ const Cart = () => {
         }
     })
 
+
     console.log(checkout);
+    console.log(products)
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
 
     return (
-        <div className=' grid grid-cols-4'>
+        <div className=' grid grid-cols-4 mt-6'>
             <div className='col-span-3'>
                 {
-                    Products.map(product => <CartProduct
+                    products.map(product => <CartProduct
                         key={product._id}
                         product={product}
                         refetch={refetch}
                         setCheckout={setCheckout}
-                        chekout={checkout}
+                        checkout={checkout}
                     ></CartProduct>)
                 }
 
 
             </div>
-            <div className=' '>
+            <div >
+                <div className="card w-72 bg-base-200 shadow-xl">
+
+                    <div className="card-body">
+                        <h2 className=" text-2xl font-bold text-center pb-4">Checkout</h2>
+                        <p className=' font-bold py-4 text-2xl'>Total Bill : ${checkout}</p>
+                        <div className="card-actions justify-end">
+                            <label htmlFor="my-modal-3" className="btn w-full">Pay Bill</label>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                {/* modal section  */}
+
+                <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+                <div className="modal">
+                    <div className="modal-box relative">
+                        <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                        <h3 className="text-lg font-bold">Pay Your bill
+                            via following payment method</h3>
+                        <h3 className="text-lg font-bold">Total Bill : ${checkout}</h3>
+                        <div className=' grid grid-cols-3 gap-4 my-8'>
+                            <img src={img1} alt="" className=' shadow-2xl rounded-lg hover:shadow-2xl' />
+                            <img src={img2} alt="" className=' shadow-2xl  rounded-lg hover:shadow-2xl' />
+                            <img src={img3} alt="" className=' shadow-2xl  rounded-lg hover:shadow-2xl' />
+                        </div>
+                    </div>
+                </div>
 
 
             </div>

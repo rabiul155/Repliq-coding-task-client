@@ -12,8 +12,8 @@ const Navbar = () => {
 
     const navLink =
         <>
-            <Link to='/product'><li className='font-bold text-md px-2'>Product List</li></Link>
-            <Link to='/addProduct'><li className='font-bold text-md px-2'>Add Product</li></Link>
+            <Link to='/product'><li className='font-bold text-md px-2'>ProductList</li></Link>
+            <Link to='/addProduct'><li className='font-bold text-md px-2'>AddProduct</li></Link>
             <Link to='/cart'><li className='font-bold text-md px-2'>Cart</li></Link>
         </>
 

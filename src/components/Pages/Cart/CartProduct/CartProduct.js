@@ -1,15 +1,15 @@
-import { click } from '@testing-library/user-event/dist/click';
-import React, { useState } from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FaTrashAlt } from "react-icons/fa";
 
 const CartProduct = ({ product, refetch, setCheckout, checkout }) => {
     const { _id, name, picture, price, about } = product;
 
-    const [count, setCount] = useState(1);
+    const [count, setCount] = useState(0);
 
     const totalPrice = count * price;
-    setCheckout(checkout + totalPrice);
+
 
 
 
@@ -17,13 +17,15 @@ const CartProduct = ({ product, refetch, setCheckout, checkout }) => {
         console.log('click')
         if (count <= 5) {
             setCount(count + 1);
+            setCheckout(checkout + price)
         }
 
     }
     const handleDecrease = () => {
         console.log('click')
-        if (count >= 2) {
+        if (count >= 1) {
             setCount(count - 1);
+            setCheckout(checkout - price)
 
         }
 
