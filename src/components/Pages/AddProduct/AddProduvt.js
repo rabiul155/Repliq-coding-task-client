@@ -28,7 +28,7 @@ const AddProduvt = () => {
                     const product = {
 
                         name: data.name,
-                        price: data.price,
+                        price: parseInt(data.price),
                         display: data.display,
                         batery: data.batery,
                         ram: data.ram,
@@ -61,20 +61,20 @@ const AddProduvt = () => {
         <div>
             <h2 className=' text-primary text-4xl font-bold text-center m-4'>Add Product </h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className=' lg:w-1/2 lg:mx-auto m-6'>
+                <div className='  m-6'>
                     <div className=' grid md:grid-cols-2 gap-4 my-2'>
                         <div className=' flex flex-col'>
                             <label className=' text-md px-1'>Name</label>
                             <input
                                 required
                                 {...register("name")}
-                                type="text" placeholder="Product Name" className="input input-bordered input-primary w-full max-w-xs" />
+                                type="text" placeholder="Product Name" className="input input-bordered input-primary w-full " />
                         </div>
                         <div className=' flex flex-col'>
                             <label className=' text-md px-1'>Price</label>
                             <input required
                                 {...register("price")}
-                                type="text" placeholder="Product Price" className="input input-bordered input-primary w-full max-w-xs" />
+                                type="text" placeholder="Product Price" className="input input-bordered input-primary w-full " />
                         </div>
                     </div>
                     <div className=' grid md:grid-cols-2 gap-4 my-2'>
@@ -82,7 +82,7 @@ const AddProduvt = () => {
                             <label className='text-md px-1'>Display</label>
                             <select required
                                 {...register("display")}
-                                className="select select-primary w-full max-w-xs">
+                                className="select select-primary w-full ">
                                 <option selected>6.7 inch</option>
                                 <option>6.6 inch</option>
                                 <option>6.5 inch</option>
@@ -94,7 +94,7 @@ const AddProduvt = () => {
                             <label className=' text-md px-1'>Ram</label>
                             <select required
                                 {...register("ram")}
-                                className="select select-primary w-full max-w-xs">
+                                className="select select-primary w-full ">
                                 <option selected>8 GB</option>
                                 <option>6 GB</option>
                                 <option>4 GB</option>
@@ -107,7 +107,7 @@ const AddProduvt = () => {
                             <label className=' text-md px-1'>Storage</label>
                             <select required
                                 {...register("storage")}
-                                className="select select-primary w-full max-w-xs">
+                                className="select select-primary w-full ">
                                 <option selected>128GB</option>
                                 <option>64 GB</option>
                                 <option>32 GB</option>
@@ -119,7 +119,7 @@ const AddProduvt = () => {
                             <label className=' text-md px-1'>Batery</label>
                             <select required
                                 {...register("batery")}
-                                className="select select-primary w-full max-w-xs">
+                                className="select select-primary w-full ">
                                 <option selected>5000 mah</option>
                                 <option>4500 mah</option>
                                 <option>4000 mah</option>
@@ -132,7 +132,7 @@ const AddProduvt = () => {
                             <label className=' text-md px-1'>Camera</label>
                             <select required
                                 {...register("camera")}
-                                className="select select-primary w-full max-w-xs">
+                                className="select select-primary w-full ">
                                 <option selected>128MP</option>
                                 <option>64 MP</option>
                                 <option>32 MP</option>
@@ -144,7 +144,7 @@ const AddProduvt = () => {
                             <label className=' text-md px-1'>Processor</label>
                             <input required
                                 {...register("procesor")}
-                                type="text" placeholder="Processor Name" className="input input-bordered input-primary w-full max-w-xs" />
+                                type="text" placeholder="Processor Name" className="input input-bordered input-primary w-full " />
                         </div>
                     </div>
 

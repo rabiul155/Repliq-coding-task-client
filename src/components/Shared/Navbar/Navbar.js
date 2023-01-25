@@ -12,9 +12,11 @@ const Navbar = () => {
 
     const navLink =
         <>
+            <Link to='/'><li className='font-bold text-md px-2'>Home</li></Link>
             <Link to='/product'><li className='font-bold text-md px-2'>ProductList</li></Link>
-            <Link to='/addProduct'><li className='font-bold text-md px-2'>AddProduct</li></Link>
+
             <Link to='/cart'><li className='font-bold text-md px-2'>Cart</li></Link>
+            <Link to='/dashbord'><li htmlFor="my-drawer" className='font-bold text-md px-2'>Dashbord</li></Link>
         </>
 
     return (
@@ -55,6 +57,10 @@ const Navbar = () => {
                             </>
 
                     }
+
+                    <label htmlFor="my-drawer" tabIndex={2} className="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                    </label>
 
 
                 </div>

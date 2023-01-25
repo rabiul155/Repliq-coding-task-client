@@ -7,7 +7,7 @@ const ProductCard = ({ product }) => {
     const { price, _id, name, about, picture } = product;
     const { user } = useContext(AuthContext);
     const cartProduct = {
-        email: user.email,
+        email: user?.email,
         name,
         price,
         picture,

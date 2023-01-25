@@ -62,6 +62,7 @@ const CartProduct = ({ product, refetch, setCheckout, checkout }) => {
                     </div>
                     <div className='px-6'>
                         <h2 className="card-title">{name}</h2>
+                        <h2 className="card-title">Price : ${price}</h2>
                         <p>{about}</p>
 
                     </div>
