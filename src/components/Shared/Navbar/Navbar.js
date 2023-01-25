@@ -4,7 +4,7 @@ import { AuthContext } from '../../../context/AuthProvider';
 
 const Navbar = () => {
 
-    const { currentUser, logOut } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
 
     const handleLogOut = () => {
         logOut();
@@ -12,9 +12,9 @@ const Navbar = () => {
 
     const navLink =
         <>
-            <Link to='/product'><li>Product List</li></Link>
-            <Link><li>Item 2</li></Link>
-            <Link><li>Item 3</li></Link>
+            <Link to='/product'><li className='font-bold text-md px-2'>Product List</li></Link>
+            <Link to='/addProduct'><li className='font-bold text-md px-2'>Add Product</li></Link>
+            <Link to='/cart'><li className='font-bold text-md px-2'>Cart</li></Link>
         </>
 
     return (
@@ -43,14 +43,14 @@ const Navbar = () => {
                 <div className="navbar-end">
 
                     {
-                        currentUser ?
+                        user?.uid ?
                             <>
-                                <Link onClick={() => handleLogOut()}>LogOut</Link>
+                                <Link className='font-bold text-md px-2' onClick={() => handleLogOut()}>LogOut</Link>
                             </>
                             :
                             <>
-                                <Link to='/login'>LogIn</Link>
-                                <Link to='/signup'>SignUp</Link>
+                                <Link className='font-bold text-md px-2' to='/login'>LogIn</Link>
+                                <Link className='font-bold text-md px-2' to='/signup'>SignUp</Link>
 
                             </>
 

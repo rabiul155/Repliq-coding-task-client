@@ -1,3 +1,5 @@
+import AddProduvt from "../components/Pages/AddProduct/AddProduvt";
+import Cart from "../components/Pages/Cart/Cart";
 import Home from "../components/Pages/Home/Home";
 import Login from "../components/Pages/Login/Login";
 import Product from "../components/Pages/Product/Product";
@@ -34,6 +36,14 @@ export const router = createBrowserRouter([
                 loader: ({ params }) => fetch(`http://localhost:5000/item/${params._id}`),
 
                 element: <ProductDetails></ProductDetails>
+            },
+            {
+                path: 'addProduct',
+                element: <AddProduvt></AddProduvt>
+            },
+            {
+                path: '/cart',
+                element: <Cart></Cart>
             }
 
         ]

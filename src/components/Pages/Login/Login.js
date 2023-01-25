@@ -1,31 +1,33 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider';
 
 const Login = () => {
 
-    const { setCurrentUser } = useContext(AuthContext);
+    const { logIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const handleSubmit = event => {
 
         event.preventDefault();
         const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
 
-        const phone = form.phone.value;
-        const pass = form.password.value;
+        logIn(email, password)
 
-        const user = {
-            phone,
-            pass
-        }
-        console.log(user)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast.success('log in user successfully')
+                navigate('/')
 
-        fetch(`http://localhost:5000/getUser?phone=${phone}&pass=${pass}`)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                if (data._id) {
-                    setCurrentUser(user)
-                }
             })
+            .then(err => console.error('log in error', err))
+
+
+
 
 
     }
@@ -42,9 +44,9 @@ const Login = () => {
                         <div className="card-body">
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Phone</span>
+                                    <span className="label-text">Email</span>
                                 </label>
-                                <input type="text" placeholder="Phone" name='phone' className="input input-bordered" />
+                                <input type="email" placeholder="Email" name='email' className="input input-bordered" />
                             </div>
                             <div className="form-control">
                                 <label className="label">
