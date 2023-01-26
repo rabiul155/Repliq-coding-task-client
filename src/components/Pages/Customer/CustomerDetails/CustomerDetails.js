@@ -15,7 +15,7 @@ const CustomerDetails = () => {
     const userEmail = email;
 
     useEffect(() => {
-        fetch(`http://localhost:5000/customer/${userEmail}`)
+        fetch(`https://replic-coding-test-server.vercel.app/customer/${userEmail}`)
             .then(res => res.json())
             .then(data => {
                 setCustomer(data);

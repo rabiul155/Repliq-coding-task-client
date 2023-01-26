@@ -20,18 +20,24 @@ const ProductCard = ({ product }) => {
     }
 
     const handleAddToCart = () => {
-        fetch(`http://localhost:5000/cart`, {
-            method: "POST",
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(cartProduct)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                toast.success('Product added');
+
+        if (user?.uid) {
+            fetch(`https://replic-coding-test-server.vercel.app/cart`, {
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(cartProduct)
             })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    toast.success('Product added');
+                })
+        }
+        else {
+            toast.success('Please Log In Fist')
+        }
     }
 
     return (

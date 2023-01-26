@@ -16,7 +16,12 @@ const Navbar = () => {
             <Link to='/product'><li className='font-bold text-md px-2'>ProductList</li></Link>
 
             <Link to='/cart'><li className='font-bold text-md px-2'>Cart</li></Link>
-            <Link to='/dashbord'><li htmlFor="my-drawer" className='font-bold text-md px-2'>Dashbord</li></Link>
+
+            {
+                user?.email === 'admin@gmail.com' &&
+
+                <Link to='/dashbord'><li htmlFor="my-drawer" className='font-bold text-md px-2'>Dashbord</li></Link>
+            }
         </>
 
     return (
@@ -33,7 +38,7 @@ const Navbar = () => {
                             }
                         </ul>
                     </div>
-                    <Link className="btn btn-ghost normal-case text-xl">REPLIQ</Link>
+                    <Link className="btn btn-ghost normal-case text-xl font-bold">REPLIQ</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">

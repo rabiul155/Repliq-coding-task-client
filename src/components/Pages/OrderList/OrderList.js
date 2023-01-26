@@ -5,7 +5,7 @@ const OrderList = () => {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/orders`)
+        fetch(`https://replic-coding-test-server.vercel.app/orders`)
             .then(res => res.json())
             .then(data => {
 

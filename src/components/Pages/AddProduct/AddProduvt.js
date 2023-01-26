@@ -39,7 +39,7 @@ const AddProduvt = () => {
                         about: data.about
                     }
                     console.log(product);
-                    fetch(`http://localhost:5000/products`, {
+                    fetch(`https://replic-coding-test-server.vercel.app/products`, {
                         method: "POST",
                         headers: {
                             'content-type': 'application/json'

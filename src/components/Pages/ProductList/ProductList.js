@@ -9,7 +9,7 @@ const ProductList = () => {
     const { data: products = [], refetch } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/products`)
+            const res = await fetch(`https://replic-coding-test-server.vercel.app/products`)
             const data = await res.json();
             return data;
         }
@@ -22,7 +22,7 @@ const ProductList = () => {
         const confirm = window.confirm('are you sure to delete this product ')
         if (confirm) {
 
-            fetch(`http://localhost:5000/products/${_id}`, {
+            fetch(`https://replic-coding-test-server.vercel.app/products/${_id}`, {
                 method: "DELETE"
             })
                 .then(res => res.json())

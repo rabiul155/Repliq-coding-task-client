@@ -10,7 +10,7 @@ const Customer = () => {
     const [users, setUser] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/users`)
+        fetch(`https://replic-coding-test-server.vercel.app/users`)
             .then(res => res.json())
             .then(data => {
                 setUser(data);

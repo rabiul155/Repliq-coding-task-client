@@ -11,6 +11,7 @@ import ProductDetails from "../components/Pages/ProductDetails/ProductDetails";
 import ProductList from "../components/Pages/ProductList/ProductList";
 import SignUp from "../components/Pages/SignUp/SignUp";
 import Dashbord from "../layout/Dashbord";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../layout/Main");
@@ -39,14 +40,14 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/item/:_id',
-                loader: ({ params }) => fetch(`http://localhost:5000/item/${params._id}`),
+                loader: ({ params }) => fetch(`https://replic-coding-test-server.vercel.app/item/${params._id}`),
 
                 element: <ProductDetails></ProductDetails>
             },
 
             {
                 path: '/cart',
-                element: <Cart></Cart>
+                element: <PrivateRoute> <Cart></Cart></PrivateRoute>
             }
 
         ]
@@ -74,7 +75,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashbord/customerDetails/:email',
-                loader: ({ params }) => fetch(`http://localhost:5000/customerDetails?email=${params.email}`),
+                loader: ({ params }) => fetch(`https://replic-coding-test-server.vercel.app/customerDetails?email=${params.email}`),
                 element: <CustomerDetails></CustomerDetails>
             },
 
