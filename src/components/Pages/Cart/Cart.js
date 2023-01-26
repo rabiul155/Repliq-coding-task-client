@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { AuthContext } from '../../../context/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
@@ -9,22 +9,38 @@ import img3 from '../../../images/p3.png'
 
 const Cart = () => {
 
-    const [checkout, setCheckout] = useState(0);
+
+
     const { user } = useContext(AuthContext);
-    const email = user?.email;
+
 
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['cartProduct'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/cart?email=${email}`)
+            const res = await fetch(`http://localhost:5000/cart?email=${user?.email}`)
             const data = await res.json();
             return data;
         }
     })
 
+    let totalCost = 0;
 
-    console.log(checkout);
-    console.log(products)
+    if (products) {
+        for (const prosuct of products) {
+
+            const price = prosuct.price;
+            const quantity = prosuct.quantity;
+            const productPrice = price * quantity;
+            totalCost = totalCost + productPrice;
+
+
+        }
+    }
+
+
+
+    // console.log(checkout);
+    // console.log(products)
 
     if (isLoading) {
         return <Loading></Loading>
@@ -38,8 +54,7 @@ const Cart = () => {
                         key={product._id}
                         product={product}
                         refetch={refetch}
-                        setCheckout={setCheckout}
-                        checkout={checkout}
+
                     ></CartProduct>)
                 }
 
@@ -50,7 +65,7 @@ const Cart = () => {
 
                     <div className="card-body">
                         <h2 className=" text-2xl font-bold text-center pb-4">Checkout</h2>
-                        <p className=' font-bold py-4 text-2xl'>Total Bill : ${checkout}</p>
+                        <p className=' font-bold py-4 text-2xl'>Total Cost : ${totalCost}</p>
                         <div className="card-actions justify-end">
                             <label htmlFor="my-modal-3" className="btn w-full">Pay Bill</label>
 
@@ -68,7 +83,7 @@ const Cart = () => {
                         <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                         <h3 className="text-lg font-bold">Pay Your bill
                             via following payment method</h3>
-                        <h3 className="text-lg font-bold">Total Bill : ${checkout}</h3>
+                        <h3 className="text-lg font-bold">Total Cost : ${totalCost}</h3>
                         <div className=' grid grid-cols-3 gap-4 my-8'>
                             <img src={img1} alt="" className=' shadow-2xl rounded-lg hover:shadow-2xl' />
                             <img src={img2} alt="" className=' shadow-2xl  rounded-lg hover:shadow-2xl' />

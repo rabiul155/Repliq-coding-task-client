@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
-import { toast } from 'react-hot-toast';
-import { json, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../context/AuthProvider';
+import React from 'react';
+
+
+
 import { useForm } from "react-hook-form";
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 
-const SignUp = () => {
+const AddCustomer = () => {
 
-    const { createUser, updateUser } = useContext(AuthContext);
 
     const { register, handleSubmit } = useForm();
 
@@ -15,12 +16,12 @@ const SignUp = () => {
     const navigate = useNavigate();
 
 
+
     const onSubmit = data => {
         console.log(data);
         const name = data.name;
         const email = data.email;
         const password = data.password;
-
         const image = data.picture[0];
         const formData = new FormData()
         formData.append('image', image);
@@ -33,53 +34,29 @@ const SignUp = () => {
             .then(imgData => {
                 if (imgData.success) {
 
-                    createUser(email, password)
-                        .then(result => {
-                            const user = result.user;
-                            console.log(user);
-                            toast.success('create user successfully')
-                            navigate('/')
+                    const user = {
+                        name,
+                        password,
+                        email,
+                        photo: imgData.data.url,
 
-                            const userInfo = {
-                                displayName: name,
-                                photoURL: imgData.data.url
-                            }
+                    }
 
-                            updateUser(userInfo)
-                                .then(() => {
-                                    const user = {
-                                        name,
-                                        password,
-                                        email,
-                                        photo: imgData.data.url,
+                    fetch(`http://localhost:5000/users`, {
+                        method: "POST",
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(user)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data)
+                            toast.success('customer added')
+                            navigate('/dashbord/customers')
 
-                                    }
-
-                                    fetch(`http://localhost:5000/users`, {
-                                        method: "POST",
-                                        headers: {
-                                            'content-type': 'application/json'
-                                        },
-                                        body: JSON.stringify(user)
-                                    })
-                                        .then(res => res.json())
-                                        .then(data => {
-                                            console.log(data)
-
-                                        })
-
-
-                                })
-                                .catch(err => {
-                                    console.log('update user error ', err)
-                                })
 
                         })
-
-                        .then(err => {
-                            console.error('sign up error', err)
-                        })
-
 
 
                 }
@@ -91,16 +68,13 @@ const SignUp = () => {
     }
 
 
-
-
-
     return (
         <div className=' flex justify-center '>
-            <div className=' w-96 border-purple-700 '>
+            <div className=' w-96 lg:w-3/4 mx-auto border-purple-700 '>
                 <form onSubmit={handleSubmit(onSubmit)} >
-                    <h2 className=' font-bold text-4xl text-pink-500 text-center p-3'>SignUp</h2>
+                    <h2 className=' font-bold text-4xl text-pink-500 text-center p-3'>AddCustomer</h2>
 
-                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                    <div className="card flex-shrink-0 w-full  shadow-2xl bg-base-100">
                         <div className="card-body">
                             <div className="form-control">
                                 <label className="label">
@@ -116,7 +90,7 @@ const SignUp = () => {
                                 </label>
                                 <input required
                                     {...register("picture")}
-                                    type="file" className="file-input file-input-bordered w-full max-w-xs" />
+                                    type="file" className="file-input file-input-bordered w-full" />
                             </div>
                             <div className="form-control">
                                 <label className="label">
@@ -135,7 +109,7 @@ const SignUp = () => {
                                     required type="password" placeholder="password" className="input input-bordered" />
                             </div>
                             <div className="form-control mt-6">
-                                <button type='submit' className="btn btn-primary">signup</button>
+                                <button type='submit' className="btn w-full mx-auto btn-primary">Add Customer</button>
                             </div>
                         </div>
                     </div>
@@ -150,4 +124,4 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+export default AddCustomer;

@@ -1,5 +1,8 @@
+import AddCustomer from "../components/AddCustomer/AddCustomer";
 import AddProduvt from "../components/Pages/AddProduct/AddProduvt";
 import Cart from "../components/Pages/Cart/Cart";
+import Customer from "../components/Pages/Customer/Customer";
+import CustomerDetails from "../components/Pages/Customer/CustomerDetails/CustomerDetails";
 import Home from "../components/Pages/Home/Home";
 import Login from "../components/Pages/Login/Login";
 import OrderList from "../components/Pages/OrderList/OrderList";
@@ -54,7 +57,7 @@ export const router = createBrowserRouter([
         element: <Dashbord></Dashbord>,
         children: [
             {
-                path: '/dashbord/addProduct',
+                path: '/dashbord',
                 element: <AddProduvt></AddProduvt>
             },
             {
@@ -65,6 +68,20 @@ export const router = createBrowserRouter([
                 path: '/dashbord/products',
                 element: <ProductList></ProductList>
             },
+            {
+                path: '/dashbord/customers',
+                element: <Customer></Customer>
+            },
+            {
+                path: '/dashbord/customerDetails/:email',
+                loader: ({ params }) => fetch(`http://localhost:5000/customerDetails?email=${params.email}`),
+                element: <CustomerDetails></CustomerDetails>
+            },
+
+            {
+                path: '/dashbord/addCustomers',
+                element: <AddCustomer></AddCustomer>
+            }
         ]
     }
 ])

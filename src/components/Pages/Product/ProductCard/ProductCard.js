@@ -6,12 +6,16 @@ import { AuthContext } from '../../../../context/AuthProvider';
 const ProductCard = ({ product }) => {
     const { price, _id, name, about, picture } = product;
     const { user } = useContext(AuthContext);
+
     const cartProduct = {
+
         email: user?.email,
         name,
         price,
         picture,
-        about
+        about,
+        date: new Date().toLocaleDateString(),
+        quantity: 1
 
     }
 

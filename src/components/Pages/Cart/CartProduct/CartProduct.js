@@ -1,12 +1,16 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FaTrashAlt } from "react-icons/fa";
+import { AuthContext } from '../../../../context/AuthProvider';
 
-const CartProduct = ({ product, refetch, setCheckout, checkout }) => {
-    const { _id, name, picture, price, about } = product;
+const CartProduct = ({ product, refetch }) => {
 
-    const [count, setCount] = useState(0);
+    const { _id, name, picture, price, about, quantity } = product;
+
+    const { user } = useContext(AuthContext);
+
+    const [count, setCount] = useState(quantity);
 
     const totalPrice = count * price;
 
@@ -14,18 +18,49 @@ const CartProduct = ({ product, refetch, setCheckout, checkout }) => {
 
 
     const handleIncrese = () => {
-        console.log('click')
+
         if (count <= 5) {
             setCount(count + 1);
-            setCheckout(checkout + price)
+
+            const quantity = {
+                quantity: count + 1
+
+            }
+            fetch(`http://localhost:5000/updateCart?email=${user?.email}&_id=${_id}`, {
+                method: "PUT",
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(quantity)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    refetch();
+                })
         }
 
     }
     const handleDecrease = () => {
-        console.log('click')
-        if (count >= 1) {
+
+        if (count >= 2) {
             setCount(count - 1);
-            setCheckout(checkout - price)
+            const quantity = {
+                quantity: count - 1
+
+            }
+            fetch(`http://localhost:5000/updateCart?email=${user?.email}&_id=${_id}`, {
+                method: "PUT",
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(quantity)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    refetch();
+                })
 
         }
 
