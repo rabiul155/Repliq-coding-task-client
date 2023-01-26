@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import { AuthContext } from '../../../../context/AuthProvider';
 
 const CustomerDetails = () => {
 
     const [customer, setCustomer] = useState();
 
+    const { email } = useContext(AuthContext);
+
+
     const products = useLoaderData();
-    const email = products[0]?.email;
+
+    console.log(email);
+    const userEmail = email;
 
     useEffect(() => {
-        fetch(`http://localhost:5000/customer/${email}`)
+        fetch(`http://localhost:5000/customer/${userEmail}`)
             .then(res => res.json())
             .then(data => {
                 setCustomer(data);
 
             })
 
-    }, [email])
+    }, [userEmail])
 
     console.log(customer);
 

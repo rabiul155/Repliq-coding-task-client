@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthProvider';
 
 const Customer = () => {
+
+
+    const { setEmail } = useContext(AuthContext);
 
     const [users, setUser] = useState([])
 
@@ -15,6 +19,12 @@ const Customer = () => {
     }, [])
 
     console.log(users);
+
+    const handleClick = (email) => {
+        console.log(email);
+        setEmail(email)
+
+    }
 
     return (
 
@@ -49,7 +59,7 @@ const Customer = () => {
                                     </td>
                                     <td>{user?.name}</td>
                                     <td>{user?.email}</td>
-                                    <td><Link to={`/dashbord/customerDetails/${user?.email}`}><button className=' btn btn-sm'>Details</button></Link></td>
+                                    <td><Link to={`/dashbord/customerDetails/${user?.email}`}><button onClick={() => handleClick(user?.email)} className=' btn btn-sm'>Details</button></Link></td>
 
                                 </tr>)
                         }
